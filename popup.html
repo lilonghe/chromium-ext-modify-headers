@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Modify Headers</title>
+  <style>
+    .icon {
+      font-size: 14px;
+      display: inline-block;
+      height: 1em; 
+      width: 1em;
+      box-sizing: border-box;
+      text-indent: -9999px;
+      vertical-align: middle;
+      position: relative;
+    }
+    .icon::before,
+    .icon::after {
+      content: '';
+      box-sizing: inherit;
+      position: absolute;
+      left: 50%; top: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+    .icon-delete::before {
+      width: .75em; height: .6em;
+      border: 2px solid;
+      border-top: 0;
+      border-radius: 0 0 2px 2px;  
+      top: 70%;
+    }
+    .icon-delete::after {
+      width: .5em;
+      border-top: 2px solid;
+      box-shadow: -.2em .2em, .2em .2em;
+      top: 1px;  
+    }
+    .icon-minus::before {
+      width: 90%;
+      border-top: 2px solid;
+    }
+    .icon-close::before {
+      width: 90%;
+      border-top: 1px solid;
+      -ms-transform: translate(-50%, -50%) rotate(45deg);
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+    .icon-close::after {
+      height: 90%;
+      border-left: 1px solid;
+      -ms-transform: translate(-50%, -50%) rotate(45deg);
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+    .icon-plus::before {
+      width: 90%;
+      border-top: 1px solid;
+    }
+    .icon-plus::after {
+      height: 90%;
+      border-left: 1px solid;
+    }
+  </style>
+  <style>
+    body {
+      width: 400px;
+      padding: 10px;
+      font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      font-weight: 300;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    .header h2 {
+      margin: 0;
+      font-weight: 300;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 24px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: #2196F3;
+    }
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+    .rule-container {
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .rule-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      gap: 5px;
+    }
+    .header-list {
+      margin-top: 10px;
+    }
+    .header-item {
+      display: flex;
+      margin-bottom: 10px;
+      gap: 5px;
+    }
+    .header-item input, .rule-header input  {
+      flex: 1;
+      padding: 5px;
+      outline: none;
+      border-radius: 4px;
+      border: 1px solid #000;
+    }
+    .btn {
+      padding: 5px 10px;
+      background-color: transparent;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .btn-delete {
+      background-color: transparent;
+      border: 1px solid red;
+      color: red;
+    }
+    .btn-add-header {
+      margin-top: 5px;
+      margin-left: auto;
+      display: flex;
+    }
+    .btn-add-rule {
+      margin-top: 10px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+    .btn-add-rule, .btn-add-header {
+      border: 1px solid green;
+      color: green;
+    }
+  </style>
+  
+</head>
+<body>
+  <div class="header">
+    <h2>Modify Headers</h2>
+    <label class="switch">
+      <input type="checkbox" id="enableSwitch">
+      <span class="slider"></span>
+    </label>
+  </div>
+  
+  <div id="rulesContainer"></div>
+  
+  <button id="addRuleBtn" class="btn btn-add-rule">
+    <span class="icon icon-plus"></span>
+    Add Rule
+  </button>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
